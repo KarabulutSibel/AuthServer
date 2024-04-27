@@ -1,4 +1,7 @@
 
+using AuthServer.Core.Configuration;
+using SharedLibrary.Configurations;
+
 namespace AuthServer.API
 {
 	public class Program
@@ -13,6 +16,9 @@ namespace AuthServer.API
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
+
+			builder.Services.Configure<CustomTokenOption>(builder.Configuration.GetSection("TokenOption"));
+			builder.Services.Configure<List<Client>>(builder.Configuration.GetSection("Clients"));
 
 			var app = builder.Build();
 
