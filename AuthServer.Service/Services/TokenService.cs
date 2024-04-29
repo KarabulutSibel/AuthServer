@@ -1,4 +1,6 @@
-﻿using AuthServer.Core.Configuration;
+﻿
+
+using AuthServer.Core.Configuration;
 using AuthServer.Core.Dtos;
 using AuthServer.Core.Models;
 using AuthServer.Core.Services;
@@ -6,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SharedLibrary.Configurations;
+using SharedLibrary.Services;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -41,8 +44,8 @@ namespace AuthServer.Service.Services
             var userList = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, userApp.Id),
-                new Claim(JwtRegisteredClaimNames.Email,userApp.Email),
-                new Claim(ClaimTypes.Name,userApp.UserName),
+                new Claim(JwtRegisteredClaimNames.Email,userApp.Email!),
+                new Claim(ClaimTypes.Name,userApp.UserName!),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
             };
 

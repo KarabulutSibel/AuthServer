@@ -1,4 +1,7 @@
 
+using SharedLibrary.Configurations;
+using SharedLibrary.Extensions;
+
 namespace MiniApp1.API
 {
 	public class Program
@@ -8,6 +11,11 @@ namespace MiniApp1.API
 			var builder = WebApplication.CreateBuilder(args);
 
 			// Add services to the container.
+
+			builder.Services.Configure<CustomTokenOption>(builder.Configuration.GetSection("TokenOption"));
+			var tokenOptions = builder.Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
+			builder.Services.AddCustomTokenAuth(tokenOptions);
+
 
 			builder.Services.AddControllers();
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -24,7 +32,7 @@ namespace MiniApp1.API
 			}
 
 			app.UseHttpsRedirection();
-
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 
